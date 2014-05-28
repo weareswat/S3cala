@@ -76,6 +76,9 @@ trait Bucket {
     /** Uploads a String into a key */
     def put ( key: String, str: String ): Future[Unit]
         = put( key, str.getBytes("UTF8") )
+        
+    /** Uploads an input stream into a key and adds filename metadata */
+    def put ( key: String, filename: String, file: File): Future[Unit]
 }
 
 

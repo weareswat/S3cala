@@ -101,6 +101,18 @@ class LiveBucket (
             bucket, key, stream, new ObjectMetadata
         ) )
     }
+    
+  /** {@inheritDoc} */
+  override def put ( key: String, filename: String, file: File): Future[Unit] = {
+    val fileStream = new FileInputStream(file)
+    var metadata = new ObjectMetadata
+    metadata.setContentDisposition("attachment;filename=%s".format(filename))
+    metadata.setContentLength(file.length)
+
+    transfer( key, client.upload(
+      bucket, key, fileStream, metadata
+     ))
+  }
 
 }
 
