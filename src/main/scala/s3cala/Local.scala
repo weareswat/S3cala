@@ -104,7 +104,7 @@ class LocalBucket (
             IOUtils.copy( stream, new FileOutputStream( find(key) ) )
         }
     }
-    
+
     /** {@inheritDoc} */
     override def put ( key: String, filename:String, file: File): Future[Unit] = {
         Future {
@@ -116,6 +116,16 @@ class LocalBucket (
         }
     }
 
+    /** {@inheritDoc} */
+    override def put ( key: String, filename:String, stream: InputStream): Future[Unit] = {
+        Future {
+            LocalS3.ensureDir( dir )
+            IOUtils.copy(
+                stream,
+                new FileOutputStream( find(key) )
+            )
+        }
+    }
 
 }
 
