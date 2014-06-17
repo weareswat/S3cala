@@ -81,7 +81,7 @@ trait Bucket {
     def put ( key: String, filename: String, file: File): Future[Unit]
 
     /** Uploads a ByteString into a key and adds filename metadata */
-    def put ( key: String, filename: String, stream: InputStream): Future[Unit]
+    def put ( key: String, filename: String, stream: InputStream, size: Option[Int]): Future[Unit]
 }
 
 

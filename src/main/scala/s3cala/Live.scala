@@ -115,9 +115,15 @@ class LiveBucket (
   }
 
   /** {@inheritDoc} */
-  override def put ( key: String, filename: String, stream: InputStream): Future[Unit] = {
+  override def put ( key: String, filename: String, stream: InputStream, sizeMaybe: Option[Int]): Future[Unit] = {
     var metadata = new ObjectMetadata
     metadata.setContentDisposition("attachment;filename=%s".format(filename))
+    sizeMaybe match{
+      case Some(size) =>
+        metadata.setContentLength(size)
+      case None =>
+
+    }
 
     transfer( key, client.upload(
       bucket, key, stream, metadata

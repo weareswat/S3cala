@@ -117,7 +117,7 @@ class LocalBucket (
     }
 
     /** {@inheritDoc} */
-    override def put ( key: String, filename:String, stream: InputStream): Future[Unit] = {
+    override def put ( key: String, filename:String, stream: InputStream, size: Option[Int]): Future[Unit] = {
         Future {
             LocalS3.ensureDir( dir )
             IOUtils.copy(
